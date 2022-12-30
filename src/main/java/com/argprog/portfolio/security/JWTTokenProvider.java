@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  *
@@ -26,11 +27,11 @@ public class JWTTokenProvider implements Serializable {
     @Value("${jwt.secret}")
     private String secret;
     
-    public String generateToken(CustomUserDetails user_details){
+    public String generateToken(UserDetails user_details){
         Instant expiration = Instant.now().plusMillis(tokenValidityPeriod);
         
         return Jwts.builder()
-                .setSubject(customUserDetails.getId()+"")
+                .setSubject(user_details.getUsername()+"")
                 .setIssuedAt(Date.from(Instant.now()))
                 .setExpiration(Date.from(expiration))
                 .signWith(SignatureAlgorithm.HS512, secret)
