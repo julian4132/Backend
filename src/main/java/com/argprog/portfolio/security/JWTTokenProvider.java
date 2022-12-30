@@ -5,8 +5,12 @@
 package com.argprog.portfolio.security;
 
 import java.io.Serializable;
+import java.time.Instant;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 /**
  *
@@ -17,8 +21,20 @@ import org.springframework.stereotype.Component;
 public class JWTTokenProvider implements Serializable {
  
     private static final long serialVersionUID=-5671247123L;
-    private static final long tokenValidityPeriod=5*60; //five minutes
+    private static final long tokenValidityPeriod=5*60*1000; //five minutes
+    
     @Value("${jwt.secret}")
     private String secret;
+    
+    public String generateToken(CustomUserDetails user_details){
+        Instant expiration = Instant.now().plusMillis(tokenValidityPeriod);
+        
+        return Jwts.builder()
+                .setSubject(customUserDetails.getId()+"")
+                .setIssuedAt(Date.from(Instant.now()))
+                .setExpiration(Date.from(expiration))
+                .signWith(SignatureAlgorithm.HS512, secret)
+                .compact();
+    }
     
 }
