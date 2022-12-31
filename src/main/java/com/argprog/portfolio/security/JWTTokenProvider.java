@@ -29,11 +29,7 @@ public class JWTTokenProvider implements Serializable {
     
     @Value("${jwt.secret}")
     private String secret;
-    private final SecretKey secretKey; 
-
-    public JWTTokenProvider() {
-        this.secretKey = Keys.hmacShaKeyFor(secret.getBytes());
-    }
+    private final SecretKey secretKey = Keys.hmacShaKeyFor(secret.getBytes());; 
     
     public String generateToken(UserDetails user_details){
         Instant expiration = Instant.now().plusMillis(tokenValidityPeriod);
@@ -54,6 +50,15 @@ public class JWTTokenProvider implements Serializable {
                 .getBody();
     }
     
+    public String getUsernameFromToken(String token){
+        return getAllClaimsFromToken(token).getSubject();
+    }
     
-    
+    public Date getExpirationDateFromToken(String token){
+        return getAllClaimsFromToken(token).getExpiration();
+    }
+
+    boolean isTokenExpired(String token) {
+        return getExpirationDateFromToken(token).before(new Date());
+    }
 }
