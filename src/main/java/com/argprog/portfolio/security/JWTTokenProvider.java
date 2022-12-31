@@ -4,6 +4,7 @@
  */
 package com.argprog.portfolio.security;
 
+import io.jsonwebtoken.Claims;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Date;
@@ -11,6 +12,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+import javax.crypto.SecretKey;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
@@ -26,6 +29,11 @@ public class JWTTokenProvider implements Serializable {
     
     @Value("${jwt.secret}")
     private String secret;
+    private final SecretKey secretKey; 
+
+    public JWTTokenProvider() {
+        this.secretKey = Keys.hmacShaKeyFor(secret.getBytes());
+    }
     
     public String generateToken(UserDetails user_details){
         Instant expiration = Instant.now().plusMillis(tokenValidityPeriod);
@@ -34,8 +42,18 @@ public class JWTTokenProvider implements Serializable {
                 .setSubject(user_details.getUsername()+"")
                 .setIssuedAt(Date.from(Instant.now()))
                 .setExpiration(Date.from(expiration))
-                .signWith(SignatureAlgorithm.HS512, secret)
+                .signWith(secretKey, SignatureAlgorithm.HS512)
                 .compact();
     }
+    
+    public Claims getAllClaimsFromToken(String token){
+        return Jwts.parserBuilder()
+                .setSigningKey(secretKey)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+    }
+    
+    
     
 }
