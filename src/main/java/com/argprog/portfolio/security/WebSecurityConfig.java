@@ -17,7 +17,7 @@ import org.springframework.security.web.SecurityFilterChain;
  * @author Usuario
  */
 
-@EnableWebSecurity
+@EnableWebSecurity(debug=true)
 @EnableMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class WebSecurityConfig {
     @Bean

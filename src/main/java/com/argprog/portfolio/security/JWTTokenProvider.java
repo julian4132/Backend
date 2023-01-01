@@ -25,14 +25,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class JWTTokenProvider implements Serializable {
  
     private static final long serialVersionUID=-5671247123L;
-    private static final long tokenValidityPeriod=5*60*1000; //five minutes
+    private static final long TOKEN_VALIDITY_PERIOD=5*60*1000; //five minutes
     
-    @Value("${jwt.secret}")
-    private String secret;
+    //@Value("${jwt.secret}")
+    private final String secret="dawjfiaodncaweuiuaysdcjajieiufyfgas";
     private final SecretKey secretKey = Keys.hmacShaKeyFor(secret.getBytes());; 
     
     public String generateToken(UserDetails user_details){
-        Instant expiration = Instant.now().plusMillis(tokenValidityPeriod);
+        Instant expiration = Instant.now().plusMillis(TOKEN_VALIDITY_PERIOD);
         
         return Jwts.builder()
                 .setSubject(user_details.getUsername()+"")
