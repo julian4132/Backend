@@ -7,6 +7,7 @@ package com.argprog.portfolio.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -34,7 +35,7 @@ public class WebSecurityConfig {
     private final UserDetailsService userDetailsService;
 
     @Autowired
-    public WebSecurityConfig(UserDetailsService userDetailsService, JwtAuthenticationEntryPoint authEntry) {
+    public WebSecurityConfig(@Lazy UserDetailsService userDetailsService, @Lazy JwtAuthenticationEntryPoint authEntry) {
         this.userDetailsService = userDetailsService;
         this.authEntry = authEntry;
     }
@@ -66,7 +67,7 @@ public class WebSecurityConfig {
         http.csrf()
             .disable()
             .authorizeHttpRequests()
-            .requestMatchers("/authenticate").permitAll().
+            .requestMatchers("/authenticate", "/register").permitAll().
             // all other requests need to be authenticated
             anyRequest().authenticated().and()
             // make sure we use stateless session; session won't be used to

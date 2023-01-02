@@ -4,14 +4,14 @@
  */
 package com.argprog.portfolio.service;
 
-import com.argprog.portfolio.model.User;
+import com.argprog.portfolio.model.UserDAO;
 
 /**
  *
  * @author Usuario
  */
 public interface UserServiceInterface {
-    public void saveUser(User usr);
-    public void editUser(Long id, User newdata);
+    public void saveUser(UserDAO usr);
+    public void editUser(Long id, UserDAO newdata);
     public void deleteUser(Long id);
 }

@@ -4,7 +4,7 @@
  */
 package com.argprog.portfolio.repository;
 
-import com.argprog.portfolio.model.User;
+import com.argprog.portfolio.model.UserDAO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +13,6 @@ import org.springframework.stereotype.Repository;
  * @author Usuario
  */
 @Repository
-public interface UserRepository extends JpaRepository<User, Long>{
+public interface UserRepository extends JpaRepository<UserDAO, Long>{
     
 }

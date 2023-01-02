@@ -6,6 +6,7 @@ package com.argprog.portfolio.controller;
 
 import com.argprog.portfolio.dto.JwtRequestDTO;
 import com.argprog.portfolio.dto.JwtResponseDTO;
+import com.argprog.portfolio.dto.UserDTO;
 import com.argprog.portfolio.security.JWTTokenProvider;
 import com.argprog.portfolio.service.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,11 @@ public class JWTAuthController {
         final UserDetails user_details = userDetailsService.loadUserByUsername(authData.getUsername());        
         final String token = tokenProvider.generateToken(user_details);
         return ResponseEntity.ok(new JwtResponseDTO(token));
+    }
+    
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public ResponseEntity<?> saveUser(@RequestBody UserDTO user) throws Exception {
+        return ResponseEntity.ok(userDetailsService.save(user));
     }
     
     private void auth(String username, String password)
