@@ -6,11 +6,13 @@ package com.argprog.portfolio.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author Usuario
  */
+@Component
 public class JWTTokenValidator {
     
     @Autowired
