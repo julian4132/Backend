@@ -9,6 +9,7 @@ import com.argprog.portfolio.dto.JwtResponseDTO;
 import com.argprog.portfolio.dto.UserDTO;
 import com.argprog.portfolio.security.JWTTokenProvider;
 import com.argprog.portfolio.service.JwtUserDetailsService;
+import io.jsonwebtoken.impl.DefaultClaims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,10 +18,12 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 
 /**
  *
@@ -52,6 +55,13 @@ public class JWTAuthController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity<?> saveUser(@RequestBody UserDTO user) throws Exception {
         return ResponseEntity.ok(userDetailsService.save(user));
+    }
+    
+    @RequestMapping(value="/refreshtoken", method = RequestMethod.GET)
+    public ResponseEntity<?> refreshJWT(@RequestAttribute DefaultClaims claims){
+        String token = tokenProvider.generateRefreshToken(claims, claims.get("sub").toString());
+        System.out.println("hooolaaaa");
+        return ResponseEntity.ok(new JwtResponseDTO(token));
     }
     
     private void auth(String username, String password)

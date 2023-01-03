@@ -49,7 +49,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             catch (IllegalArgumentException e) {
         	System.out.println("Invalid Token format");
             } catch (ExpiredJwtException e) {
-                System.out.println("Expired token");
+                //System.out.println("Expired token");
+                String isRefreshToken = request.getHeader("isRefreshToken");
+                String requestURL = request.getRequestURL().toString();
+                if(isRefreshToken!=null && isRefreshToken.equals("true") && requestURL.contains("refreshtoken")){
+                    acceptRefreshToken(e, request);
+                }
             }
         }
         else{
@@ -68,10 +73,14 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 // that the current user is authenticated. So it passes the
                 // Spring Security Configurations successfully.
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-            }
-            
+            }           
         }
-        
         chain.doFilter(request, response);
+    }
+
+    private void acceptRefreshToken(ExpiredJwtException e, HttpServletRequest request) {
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(null, null, null);
+        SecurityContextHolder.getContext().setAuthentication(token);
+        request.setAttribute("claims", e.getClaims());
     }
 }
