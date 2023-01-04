@@ -25,7 +25,7 @@ import org.springframework.security.web.SecurityFilterChain;
  * @author Usuario
  */
 
-@EnableWebSecurity(debug=true)
+@EnableWebSecurity/*(debug=true)*/
 @EnableMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 @Configuration
 public class WebSecurityConfig {
@@ -67,7 +67,7 @@ public class WebSecurityConfig {
         http.csrf()
             .disable()
             .authorizeHttpRequests()
-            .requestMatchers("/authenticate", "/register").permitAll().
+            .requestMatchers("/authenticate", "/register", "/refreshtoken").permitAll().
             // all other requests need to be authenticated
             anyRequest().authenticated().and()
             // make sure we use stateless session; session won't be used to

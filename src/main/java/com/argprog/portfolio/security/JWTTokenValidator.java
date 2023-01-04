@@ -4,9 +4,17 @@
  */
 package com.argprog.portfolio.security;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.UnsupportedJwtException;
+import org.springframework.security.authentication.BadCredentialsException;
 
 /**
  *
@@ -15,11 +23,19 @@ import org.springframework.stereotype.Component;
 @Component
 public class JWTTokenValidator {
     
-    @Autowired
-    JWTTokenProvider tokenProvider;
+    /*@Autowired
+    JWTTokenProvider tokenProvider;*/
+    private final String secret="dawjfiaodncaweuauoufhasodcuibfhjsfhasjkavfscerncyuiiuaysdcjajieiufyfgas";
     
-    public Boolean validateToken(String token, UserDetails user_details){
-        final String username = tokenProvider.getUsernameFromToken(token);
-        return (username.equals(user_details.getUsername()) && !tokenProvider.isTokenExpired(token));
+    public void validateToken(String token){
+        /*final String username = tokenProvider.getUsernameFromToken(token);
+        return (username.equals(user_details.getUsername()) && !tokenProvider.isTokenExpired(token));*/
+        try {
+            Jwts.parserBuilder().setSigningKey(secret).build().parseClaimsJws(token);
+        } catch (SignatureException | MalformedJwtException | UnsupportedJwtException | IllegalArgumentException ex) {
+            throw new BadCredentialsException("INVALID_CREDENTIALS", ex);
+        } catch (ExpiredJwtException e) {
+            throw e;
+        }
     }
 }
