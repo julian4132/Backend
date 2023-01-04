@@ -14,6 +14,8 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
+import io.jsonwebtoken.security.Keys;
+import javax.crypto.SecretKey;
 import org.springframework.security.authentication.BadCredentialsException;
 
 /**
@@ -26,12 +28,13 @@ public class JWTTokenValidator {
     /*@Autowired
     JWTTokenProvider tokenProvider;*/
     private final String secret="dawjfiaodncaweuauoufhasodcuibfhjsfhasjkavfscerncyuiiuaysdcjajieiufyfgasnuvfianlsdfnacjwekcsammlkajcasdcawecasdgwbjuerc";
+    private final SecretKey secretKey = Keys.hmacShaKeyFor(secret.getBytes()); 
     
     public void validateToken(String token){
         /*final String username = tokenProvider.getUsernameFromToken(token);
         return (username.equals(user_details.getUsername()) && !tokenProvider.isTokenExpired(token));*/
         try {
-            Jwts.parserBuilder().setSigningKey(secret).build().parseClaimsJws(token);
+            Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token);
         } catch (SignatureException | MalformedJwtException | UnsupportedJwtException | IllegalArgumentException ex) {
             System.out.println("Mas aun");
             throw new BadCredentialsException("INVALID_CREDENTIALS", ex);
