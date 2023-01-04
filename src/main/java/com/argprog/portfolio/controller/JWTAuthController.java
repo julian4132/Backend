@@ -58,7 +58,7 @@ public class JWTAuthController {
     }
     
     @RequestMapping(value="/refreshtoken", method = RequestMethod.GET)
-    public ResponseEntity<?> refreshJWT(){
+    public ResponseEntity<?> refreshJWT(@RequestAttribute DefaultClaims claims){
         /*String token = tokenProvider.generateRefreshToken(claims, claims.get("sub").toString());
         System.out.println("hooolaaaa");
         return ResponseEntity.ok(new JwtResponseDTO(token));*/

@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -42,11 +43,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         throws ServletException, IOException{
         final String header = request.getHeader("Authorization");
         
-        System.out.println("jurujujaja");
+        //System.out.println("jurujujaja");
         try{
             if(header!=null && header.startsWith("Bearer ")){
                 String token = header.substring(7);
            
+                System.out.println("Va queriendo");
                 tokenValidator.validateToken(token);
                 UserDetails userDetails = new User(tokenProvider.getUsernameFromToken(token), "", new ArrayList<>());
 
@@ -70,6 +72,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 if(isRefreshToken!=null && isRefreshToken.equals("true") && requestURL.contains("refreshtoken")){
                     acceptRefreshToken(e, request);
                 }
+            }
+            catch (BadCredentialsException e){
+                System.out.println("Te tengo");
+                throw new BadCredentialsException("INVALID_CREDENTIALS", e);
             }
         
         /*if(username!=null && SecurityContextHolder.getContext().getAuthentication()==null){

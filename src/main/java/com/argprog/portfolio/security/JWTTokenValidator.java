@@ -25,7 +25,7 @@ public class JWTTokenValidator {
     
     /*@Autowired
     JWTTokenProvider tokenProvider;*/
-    private final String secret="dawjfiaodncaweuauoufhasodcuibfhjsfhasjkavfscerncyuiiuaysdcjajieiufyfgas";
+    private final String secret="dawjfiaodncaweuauoufhasodcuibfhjsfhasjkavfscerncyuiiuaysdcjajieiufyfgasnuvfianlsdfnacjwekcsammlkajcasdcawecasdgwbjuerc";
     
     public void validateToken(String token){
         /*final String username = tokenProvider.getUsernameFromToken(token);
@@ -33,6 +33,7 @@ public class JWTTokenValidator {
         try {
             Jwts.parserBuilder().setSigningKey(secret).build().parseClaimsJws(token);
         } catch (SignatureException | MalformedJwtException | UnsupportedJwtException | IllegalArgumentException ex) {
+            System.out.println("Mas aun");
             throw new BadCredentialsException("INVALID_CREDENTIALS", ex);
         } catch (ExpiredJwtException e) {
             throw e;

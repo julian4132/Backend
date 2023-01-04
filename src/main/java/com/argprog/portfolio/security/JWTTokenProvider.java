@@ -30,7 +30,7 @@ public class JWTTokenProvider implements Serializable {
     private static final long REFRESH_VALIDITY_PERIOD=3*60*1000; //three minutes
     
     //@Value("${jwt.secret}")
-    private final String secret="dawjfiaodncaweuauoufhasodcuibfhjsfhasjkavfscerncyuiiuaysdcjajieiufyfgas";
+    private final String secret="dawjfiaodncaweuauoufhasodcuibfhjsfhasjkavfscerncyuiiuaysdcjajieiufyfgasnuvfianlsdfnacjwekcsammlkajcasdcawecasdgwbjuerc";
     private final SecretKey secretKey = Keys.hmacShaKeyFor(secret.getBytes());; 
     
     public String generateToken(UserDetails user_details){
