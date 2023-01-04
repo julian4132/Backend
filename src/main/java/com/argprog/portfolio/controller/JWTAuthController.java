@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import jakarta.servlet.http.HttpServletRequest;
 
 
 /**
@@ -58,7 +59,7 @@ public class JWTAuthController {
     }
     
     @RequestMapping(value="/refreshtoken", method = RequestMethod.GET)
-    public ResponseEntity<?> refreshJWT(@RequestAttribute DefaultClaims claims){
+    public ResponseEntity<?> refreshJWT(HttpServletRequest http){
         /*String token = tokenProvider.generateRefreshToken(claims, claims.get("sub").toString());
         System.out.println("hooolaaaa");
         return ResponseEntity.ok(new JwtResponseDTO(token));*/
