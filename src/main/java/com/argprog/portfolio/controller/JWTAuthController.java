@@ -60,10 +60,10 @@ public class JWTAuthController {
     
     @RequestMapping(value="/refreshtoken", method = RequestMethod.GET)
     public ResponseEntity<?> refreshJWT(HttpServletRequest http){
-        /*String token = tokenProvider.generateRefreshToken(claims, claims.get("sub").toString());
+        DefaultClaims claims = (io.jsonwebtoken.impl.DefaultClaims) http.getAttribute("claims");
+        String token = tokenProvider.generateRefreshToken(claims, claims.get("sub").toString());
         System.out.println("hooolaaaa");
-        return ResponseEntity.ok(new JwtResponseDTO(token));*/
-        return ResponseEntity.ok("hola");
+        return ResponseEntity.ok(new JwtResponseDTO(token));
     }
     
     private void auth(String username, String password)
