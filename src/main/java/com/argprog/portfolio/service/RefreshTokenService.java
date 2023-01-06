@@ -6,6 +6,7 @@ package com.argprog.portfolio.service;
 
 import com.argprog.portfolio.model.RefreshTokenDAO;
 import com.argprog.portfolio.repository.RefreshTokenRepository;
+import com.argprog.portfolio.repository.UserRepository;
 import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
@@ -21,16 +22,19 @@ public class RefreshTokenService {
     
     private final RefreshTokenRepository refreshTokenRepository;
     
+    private final UserRepository userRepository;
+    
     private final long REFRESH_VALIDITY_PERIOD = 7*24*60*60*1000; //one week
     
     @Autowired
-    public RefreshTokenService(RefreshTokenRepository refreshTokenRepository){
+    public RefreshTokenService(RefreshTokenRepository refreshTokenRepository, UserRepository userRepository){
         this.refreshTokenRepository=refreshTokenRepository;
+        this.userRepository=userRepository;
     }
     
     public RefreshTokenDAO newToken(String username){
         RefreshTokenDAO tokenDAO = new RefreshTokenDAO();
-        tokenDAO.setUsername(username);
+        tokenDAO.setUser(userRepository.findByUsername(username));
         tokenDAO.setExpiry(Instant.now().plusMillis(REFRESH_VALIDITY_PERIOD));
         tokenDAO.setSecret(UUID.randomUUID().toString());
         return tokenDAO;

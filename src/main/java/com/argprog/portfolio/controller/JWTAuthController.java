@@ -73,7 +73,7 @@ public class JWTAuthController {
         Optional<RefreshTokenDAO> refreshData = refreshTokenService.findBySecret(refreshToken);
         
         return refreshData.map(data -> {
-            final UserDetails user_details = userDetailsService.loadUserByUsername(data.getUsername());        
+            final UserDetails user_details = userDetailsService.loadUserByUsername(data.getUser().getUsername());
             final String token = tokenProvider.generateToken(user_details);
             return ResponseEntity.ok(new JwtResponseDTO(token));
         }).orElseThrow(() -> new BadCredentialsException("Invalid refresh token supplied"));

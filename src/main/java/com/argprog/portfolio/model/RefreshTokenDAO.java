@@ -33,10 +33,9 @@ public class RefreshTokenDAO {
     private long Id;
     
     
-    @Column
-    /*@OneToOne(optional=false, cascade=CascadeType.ALL)
-    @JoinColumn(name="user_id", unique=true)*/
-    private String username;
+    @OneToOne(optional=false, cascade=CascadeType.ALL)
+    @JoinColumn(name="user_id", unique=true)
+    private UserDAO user;
     
     @Column
     private Instant expiry;
@@ -44,9 +43,9 @@ public class RefreshTokenDAO {
     @Column
     private String secret;
     
-    public RefreshTokenDAO(Long Id, String username, Instant expiry){
+    public RefreshTokenDAO(Long Id, UserDAO user, Instant expiry){
         this.Id=Id;
-        this.username=username;
+        this.user=user;
         this.expiry=expiry;
     }
 }
