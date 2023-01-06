@@ -54,6 +54,7 @@ public class JWTAuthController {
         final UserDetails user_details = userDetailsService.loadUserByUsername(authData.getUsername());        
         final String token = tokenProvider.generateToken(user_details);
         final RefreshTokenDAO refreshToken = refreshTokenService.newToken(authData.getUsername());
+        refreshTokenService.save(refreshToken);
         return ResponseEntity.ok(new JwtResponseDTO(token, refreshToken.getSecret()));
     }
     
