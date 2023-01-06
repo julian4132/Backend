@@ -13,12 +13,18 @@ import java.io.Serializable;
 public class JwtResponseDTO implements Serializable {
     private static final long serialVersionUID = 2534523188239L;
     private final String token;
+    private final String refreshToken;
     
-    public JwtResponseDTO(String token){
+    public JwtResponseDTO(String token, String refreshToken){
         this.token=token;
+        this.refreshToken=refreshToken;
     }
     
     public String getToken(){
         return this.token;
+    }
+    
+    public String getRefreshToken(){
+        return this.refreshToken;
     }
 }

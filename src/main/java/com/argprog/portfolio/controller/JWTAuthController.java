@@ -53,7 +53,8 @@ public class JWTAuthController {
         
         final UserDetails user_details = userDetailsService.loadUserByUsername(authData.getUsername());        
         final String token = tokenProvider.generateToken(user_details);
-        return ResponseEntity.ok(new JwtResponseDTO(token));
+        final RefreshTokenDAO refreshToken = refreshTokenService.newToken(authData.getUsername());
+        return ResponseEntity.ok(new JwtResponseDTO(token, refreshToken.getSecret()));
     }
     
     @RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -75,7 +76,7 @@ public class JWTAuthController {
         return refreshData.map(data -> {
             final UserDetails user_details = userDetailsService.loadUserByUsername(data.getUser().getUsername());
             final String token = tokenProvider.generateToken(user_details);
-            return ResponseEntity.ok(new JwtResponseDTO(token));
+            return ResponseEntity.ok(new JwtResponseDTO(token, null));
         }).orElseThrow(() -> new BadCredentialsException("Invalid refresh token supplied"));
     }
     

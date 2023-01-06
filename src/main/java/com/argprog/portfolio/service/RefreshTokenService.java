@@ -40,6 +40,10 @@ public class RefreshTokenService {
         return tokenDAO;
     }
     
+    public void save(RefreshTokenDAO token){
+        refreshTokenRepository.save(token);
+    }
+    
     public Optional<RefreshTokenDAO> findById(Long Id){
         return refreshTokenRepository.findById(Id);
     }
