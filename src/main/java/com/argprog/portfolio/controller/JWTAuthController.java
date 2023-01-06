@@ -70,7 +70,7 @@ public class JWTAuthController {
     @RequestMapping(value="/refreshtoken", method = RequestMethod.POST)
     public ResponseEntity<?> refreshJWT(@RequestBody RefreshRequestDTO request){
         String refreshToken = request.getRefreshToken();
-        Optional<RefreshTokenDAO> refreshData = refreshTokenService.findByToken(refreshToken);
+        Optional<RefreshTokenDAO> refreshData = refreshTokenService.findBySecret(refreshToken);
         
         return refreshData.map(data -> {
             final UserDetails user_details = userDetailsService.loadUserByUsername(data.getUsername());        

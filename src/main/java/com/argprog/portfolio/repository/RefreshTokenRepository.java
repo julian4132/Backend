@@ -17,5 +17,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RefreshTokenRepository extends JpaRepository<RefreshTokenDAO, Long> {
     Optional<RefreshTokenDAO> findById(long Id);
-    Optional<RefreshTokenDAO> findByToken(String token);
+    Optional<RefreshTokenDAO> findBySecret(String token);
 }

@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 public class RefreshTokenService {
     
     private final RefreshTokenRepository refreshTokenRepository;
+    
     private final long REFRESH_VALIDITY_PERIOD = 7*24*60*60*1000; //one week
     
     @Autowired
@@ -39,7 +40,7 @@ public class RefreshTokenService {
         return refreshTokenRepository.findById(Id);
     }
     
-    public Optional<RefreshTokenDAO> findByToken(String token){
-        return refreshTokenRepository.findByToken(token);
+    public Optional<RefreshTokenDAO> findBySecret(String token){
+        return refreshTokenRepository.findBySecret(token);
     }
 }
