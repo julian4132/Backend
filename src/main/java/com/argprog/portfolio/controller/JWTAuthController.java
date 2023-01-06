@@ -6,9 +6,13 @@ package com.argprog.portfolio.controller;
 
 import com.argprog.portfolio.dto.JwtRequestDTO;
 import com.argprog.portfolio.dto.JwtResponseDTO;
+import com.argprog.portfolio.dto.RefreshRequestDTO;
 import com.argprog.portfolio.dto.UserDTO;
+import com.argprog.portfolio.model.RefreshTokenDAO;
 import com.argprog.portfolio.security.JWTTokenProvider;
 import com.argprog.portfolio.service.JwtUserDetailsService;
+import com.argprog.portfolio.service.RefreshTokenService;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -40,6 +44,9 @@ public class JWTAuthController {
     @Autowired
     private JwtUserDetailsService userDetailsService;
     
+    @Autowired
+    private RefreshTokenService refreshTokenService;
+    
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> createJWT(@RequestBody JwtRequestDTO authData) throws Exception {
         auth(authData.getUsername(), authData.getPassword());
@@ -58,6 +65,18 @@ public class JWTAuthController {
             throws DisabledException, BadCredentialsException { //name the exceptions
                 authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password)
             );   
+    }
+    
+    @RequestMapping(value="/refreshtoken", method = RequestMethod.POST)
+    public ResponseEntity<?> refreshJWT(@RequestBody RefreshRequestDTO request){
+        String refreshToken = request.getRefreshToken();
+        Optional<RefreshTokenDAO> refreshData = refreshTokenService.findByToken(refreshToken);
+        
+        return refreshData.map(data -> {
+            final UserDetails user_details = userDetailsService.loadUserByUsername(data.getUsername());        
+            final String token = tokenProvider.generateToken(user_details);
+            return ResponseEntity.ok(new JwtResponseDTO(token));
+        }).orElseThrow(() -> new BadCredentialsException("Invalid refresh token supplied"));
     }
     
     
