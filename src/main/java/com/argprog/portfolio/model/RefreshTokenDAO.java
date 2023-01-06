@@ -16,7 +16,6 @@ import java.time.Instant;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import java.util.UUID;
 
 /**
  *
@@ -45,6 +44,5 @@ public class RefreshTokenDAO {
         this.Id=Id;
         this.username=username;
         this.expiry=expiry;
-        this.secret=UUID.randomUUID().toString();
     }
 }
