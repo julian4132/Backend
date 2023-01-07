@@ -29,7 +29,7 @@ public class JWTTokenProvider implements Serializable {
     
     //@Value("${jwt.secret}")
     private final String secret="dawjfiaodncaweuauoufhasodcuibfhjsfhasjkavfscerncyuiiuaysdcjajieiufyfgas";
-    private final SecretKey secretKey = Keys.hmacShaKeyFor(secret.getBytes());; 
+    private final SecretKey secretKey = Keys.hmacShaKeyFor(secret.getBytes());
     
     public String generateToken(UserDetails user_details){
         Instant expiration = Instant.now().plusMillis(TOKEN_VALIDITY_PERIOD);

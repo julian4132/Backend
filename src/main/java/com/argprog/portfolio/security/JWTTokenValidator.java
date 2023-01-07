@@ -6,6 +6,8 @@ package com.argprog.portfolio.security;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
+import javax.crypto.SecretKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -21,10 +23,11 @@ public class JWTTokenValidator {
     JWTTokenProvider tokenProvider;
     
     private final String secret="dawjfiaodncaweuauoufhasodcuibfhjsfhasjkavfscerncyuiiuaysdcjajieiufyfgas";
+    private final SecretKey secretKey = Keys.hmacShaKeyFor(secret.getBytes());
     
     public void validateToken(String token) throws Exception{
         try{
-            Jwts.parserBuilder().setSigningKey(secret).build().parseClaimsJws(token);
+            Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token);
         }
         catch(ExpiredJwtException e){
             throw new Exception("The token has expired");
