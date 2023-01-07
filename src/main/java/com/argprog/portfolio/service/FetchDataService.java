@@ -5,6 +5,7 @@
 package com.argprog.portfolio.service;
 
 import com.argprog.portfolio.model.PortfolioUserDataDAO;
+import com.argprog.portfolio.model.UserDAO;
 import com.argprog.portfolio.repository.UserRepository;
 import com.argprog.portfolio.security.JWTTokenProvider;
 import com.argprog.portfolio.security.JWTTokenValidator;
@@ -29,8 +30,11 @@ public class FetchDataService {
         this.userRepository=userRepository;
     }
     
-    public PortfolioUserDataDAO FetchDataFromToken(String token){
-        return null;
+    public PortfolioUserDataDAO FetchDataFromToken(String token) throws Exception{
+        tokenValidator.validateToken(token);
+        String username = tokenProvider.getUsernameFromToken(token);
+        UserDAO user = userRepository.findByUsername(username);
+        return user.getPortfolioUserData();
     }
     
 }
