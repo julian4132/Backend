@@ -9,8 +9,10 @@ import com.argprog.portfolio.dto.JwtResponseDTO;
 import com.argprog.portfolio.dto.RefreshRequestDTO;
 import com.argprog.portfolio.dto.UserDTO;
 import com.argprog.portfolio.model.RefreshTokenDAO;
+import com.argprog.portfolio.model.UserDAO;
 import com.argprog.portfolio.security.JWTTokenProvider;
 import com.argprog.portfolio.service.JwtUserDetailsService;
+import com.argprog.portfolio.service.PortfolioUserDataService;
 import com.argprog.portfolio.service.RefreshTokenService;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,6 +50,12 @@ public class JWTAuthController {
     @Autowired
     private RefreshTokenService refreshTokenService;
     
+    @Autowired
+    private PasswordEncoder bcryptPasswordEncoder;
+    
+    @Autowired
+    private PortfolioUserDataService portfolioUserDataService;
+    
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> createJWT(@RequestBody JwtRequestDTO authData) throws Exception {
         auth(authData.getUsername(), authData.getPassword());
@@ -60,7 +69,12 @@ public class JWTAuthController {
     
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity<?> saveUser(@RequestBody UserDTO user) throws Exception {
-        return ResponseEntity.ok(userDetailsService.save(user));
+        UserDAO newUser = new UserDAO();
+        newUser.setUsername(user.getUsername());
+        newUser.setEmail(null);
+        newUser.setPassword(bcryptPasswordEncoder.encode(user.getPassword()));
+        newUser.setPortfolioUserData(portfolioUserDataService.createDefaultUserData());
+        return ResponseEntity.ok(userDetailsService.save(newUser));
     }
     
     private void auth(String username, String password)

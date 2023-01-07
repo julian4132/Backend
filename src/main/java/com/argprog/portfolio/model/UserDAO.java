@@ -14,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,6 +28,7 @@ import lombok.Setter;
 @Table(name="users")
 @Setter @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class UserDAO {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -41,6 +43,6 @@ public class UserDAO {
     private String password;
     
     @OneToOne(optional=false, cascade=CascadeType.ALL)
-    @JoinColumn(name="portfolio_user_data")
+    @JoinColumn(name="data_id")
     private PortfolioUserDataDAO portfolioUserData;
 }
