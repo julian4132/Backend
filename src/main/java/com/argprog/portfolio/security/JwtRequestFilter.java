@@ -73,10 +73,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
             catch(Exception e){
-                throw new Exception("Invalid Token");
+                //throw new Exception("Invalid Token");
             }
             
         }
+        
+        System.out.println("Llegue");
         
         chain.doFilter(request, response);
     }
