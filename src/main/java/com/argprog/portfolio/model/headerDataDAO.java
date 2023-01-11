@@ -4,15 +4,13 @@
  */
 package com.argprog.portfolio.model;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,19 +20,21 @@ import lombok.Setter;
  * @author Usuario
  */
 @Entity
-@Table(name="portfolio_user_data")
+@Table(name="header")
 @Setter @Getter
 @NoArgsConstructor
-public class PortfolioUserDataDAO {
-    
+@AllArgsConstructor
+public class headerDataDAO {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long Id;
     
     @Column
-    private String aboutText;
+    private String fullName="aa";
     
-    @OneToOne(optional=false, cascade=CascadeType.ALL)
-    @JoinColumn(name="header_id")
-    private headerDataDAO headerData=new headerDataDAO();
+    @Column
+    private String profession="bb";
+    
+    @Column
+    private String aboutText="cc";
 }
