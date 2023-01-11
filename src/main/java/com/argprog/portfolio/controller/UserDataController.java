@@ -4,12 +4,15 @@
  */
 package com.argprog.portfolio.controller;
 
+import com.argprog.portfolio.dto.UpdateRequestDTO;
 import com.argprog.portfolio.security.JWTTokenProvider;
 import com.argprog.portfolio.security.JWTTokenValidator;
 import com.argprog.portfolio.service.FetchDataService;
+import com.argprog.portfolio.service.UpdateDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,11 +28,23 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserDataController {
     
     private final FetchDataService fetchDataService;
+    private final UpdateDataService updateDataService;
     
     @Autowired
-    public UserDataController(FetchDataService fetchDataService){
+    public UserDataController(FetchDataService fetchDataService, UpdateDataService updateDataService){
         this.fetchDataService=fetchDataService;
+        this.updateDataService=updateDataService;
         
+    }
+    
+    @RequestMapping(value="/updatedata", method = RequestMethod.POST)
+    public ResponseEntity<?> updateData(@RequestHeader("Authorization") String authorizationHeader, 
+            @RequestBody UpdateRequestDTO updateData) throws Exception{
+        String token = extractTokenFromHeader(authorizationHeader);
+        return ResponseEntity.ok(updateDataService.UpdateDataFromToken(token, updateData));
+        //fetchDataService.fetch
+        //fetchDataService(token)
+        //tokenValidator.validateToken(token);
     }
     
     
