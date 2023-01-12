@@ -41,7 +41,8 @@ public class UserDataController {
     public ResponseEntity<?> updateData(@RequestHeader("Authorization") String authorizationHeader, 
             @RequestBody UpdateRequestDTO updateData) throws Exception{
         String token = extractTokenFromHeader(authorizationHeader);
-        return ResponseEntity.ok(updateDataService.UpdateDataFromToken(token, updateData));
+        updateDataService.UpdateDataFromToken(token, updateData);
+        return ResponseEntity.ok("Info updated");
         //fetchDataService.fetch
         //fetchDataService(token)
         //tokenValidator.validateToken(token);

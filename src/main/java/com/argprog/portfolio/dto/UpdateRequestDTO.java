@@ -6,18 +6,23 @@ package com.argprog.portfolio.dto;
 
 import java.io.Serializable;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 /**
  *
  * @author Usuario
  */
 
-@Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateRequestDTO implements Serializable {
+
+    public headerDataDTO getHeaderData() {
+        return headerData;
+    }
+
+    public void setHeaderData(headerDataDTO headerData) {
+        this.headerData = headerData;
+    }
     private headerDataDTO headerData;
 }

@@ -6,17 +6,18 @@ package com.argprog.portfolio.service;
 
 import com.argprog.portfolio.dto.PortfolioDataMapper;
 import com.argprog.portfolio.dto.UpdateRequestDTO;
-import com.argprog.portfolio.model.PortfolioUserDataDAO;
 import com.argprog.portfolio.model.UserDAO;
 import com.argprog.portfolio.repository.UserRepository;
 import com.argprog.portfolio.security.JWTTokenProvider;
 import com.argprog.portfolio.security.JWTTokenValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Usuario
  */
+@Service
 public class UpdateDataService {
     private final JWTTokenProvider tokenProvider;
     private final JWTTokenValidator tokenValidator;

@@ -13,6 +13,7 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
  *
  * @author Usuario
  */
+
 @Mapper(componentModel = "spring")
 public interface PortfolioDataMapper {
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

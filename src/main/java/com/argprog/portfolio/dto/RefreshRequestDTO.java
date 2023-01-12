@@ -6,9 +6,7 @@ package com.argprog.portfolio.dto;
 
 import java.io.Serializable;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 /**
  *
@@ -16,7 +14,14 @@ import lombok.Setter;
  */
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter @Getter
 public class RefreshRequestDTO implements Serializable {
     public String refreshToken;
+
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
 }

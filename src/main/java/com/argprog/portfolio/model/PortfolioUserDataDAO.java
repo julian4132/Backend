@@ -13,9 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 /**
  *
@@ -23,9 +21,32 @@ import lombok.Setter;
  */
 @Entity
 @Table(name="portfolio_user_data")
-@Setter @Getter
 @NoArgsConstructor
 public class PortfolioUserDataDAO {
+
+    public long getId() {
+        return Id;
+    }
+
+    public void setId(long Id) {
+        this.Id = Id;
+    }
+
+    public String getAboutText() {
+        return aboutText;
+    }
+
+    public void setAboutText(String aboutText) {
+        this.aboutText = aboutText;
+    }
+
+    public headerDataDAO getHeaderData() {
+        return headerData;
+    }
+
+    public void setHeaderData(headerDataDAO headerData) {
+        this.headerData = headerData;
+    }
     
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
