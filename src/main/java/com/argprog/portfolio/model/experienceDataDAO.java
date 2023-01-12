@@ -43,11 +43,25 @@ public class experienceDataDAO {
     public void setExperienceData(List<ItemDataDAO> experienceData) {
         this.experienceData = experienceData;
     }
+    
+    public List<ItemDataDAO> getEducationData() {
+        return educationData;
+    }
+
+    public void setEducationData(List<ItemDataDAO> educationData) {
+        this.educationData = educationData;
+    }
+    
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long Id;
     
     @OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)
-    @JoinColumn(name="item_data_id")
+    @JoinColumn(name="experience_data_id")
     private List<ItemDataDAO> experienceData=new ArrayList<ItemDataDAO>();
+    
+    
+    @OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)
+    @JoinColumn(name="education_data_id")
+    private List<ItemDataDAO> educationData=new ArrayList<ItemDataDAO>();
 }
