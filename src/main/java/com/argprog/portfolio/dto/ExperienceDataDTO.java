@@ -15,9 +15,27 @@ import java.util.List;
 public class ExperienceDataDTO implements Serializable {
     private List<ItemDataDAO> experienceData;
     private List<ItemDataDAO> educationData;
+    private List<ItemDataDAO> projectsData;
+    private List<ItemDataDAO> awardsData;
 
     public List<ItemDataDAO> getEducationData() {
         return educationData;
+    }
+
+    public List<ItemDataDAO> getProjectsData() {
+        return projectsData;
+    }
+
+    public void setProjectsData(List<ItemDataDAO> projectsData) {
+        this.projectsData = projectsData;
+    }
+
+    public List<ItemDataDAO> getAwardsData() {
+        return awardsData;
+    }
+
+    public void setAwardsData(List<ItemDataDAO> awardsData) {
+        this.awardsData = awardsData;
     }
 
     public void setEducationData(List<ItemDataDAO> educationData) {

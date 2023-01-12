@@ -52,6 +52,22 @@ public class experienceDataDAO {
         this.educationData = educationData;
     }
     
+    public List<ItemDataDAO> getProjectsData() {
+        return projectsData;
+    }
+
+    public void setProjectsData(List<ItemDataDAO> projectsData) {
+        this.projectsData = projectsData;
+    }
+
+    public List<ItemDataDAO> getAwardsData() {
+        return awardsData;
+    }
+
+    public void setAwardsData(List<ItemDataDAO> awardsData) {
+        this.awardsData = awardsData;
+    }
+    
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long Id;
@@ -64,4 +80,12 @@ public class experienceDataDAO {
     @OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)
     @JoinColumn(name="education_data_id")
     private List<ItemDataDAO> educationData=new ArrayList<ItemDataDAO>();
+    
+    @OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)
+    @JoinColumn(name="projects_data_id")
+    private List<ItemDataDAO> projectsData=new ArrayList<ItemDataDAO>();
+    
+    @OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)
+    @JoinColumn(name="awards_data_id")
+    private List<ItemDataDAO> awardsData=new ArrayList<ItemDataDAO>();
 }
