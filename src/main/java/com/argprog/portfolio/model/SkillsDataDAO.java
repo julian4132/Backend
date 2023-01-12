@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderColumn;
 import jakarta.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +29,12 @@ public class SkillsDataDAO {
     
     @OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)
     @JoinColumn(name="softskills_data_id")
+    @OrderColumn
     private List<progressDataDAO> softSkillsData=new ArrayList<progressDataDAO>();
     
     @OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)
     @JoinColumn(name="languages_data_id")
+    @OrderColumn
     private List<progressDataDAO> languagesData=new ArrayList<progressDataDAO>();
 
     public long getId() {
