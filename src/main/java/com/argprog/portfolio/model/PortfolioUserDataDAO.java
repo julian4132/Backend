@@ -48,6 +48,14 @@ public class PortfolioUserDataDAO {
         this.headerData = headerData;
     }
     
+    public experienceDataDAO getExperienceData() {
+        return experienceData;
+    }
+
+    public void setExperienceData(experienceDataDAO experienceData) {
+        this.experienceData = experienceData;
+    }
+    
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long Id;
@@ -58,4 +66,9 @@ public class PortfolioUserDataDAO {
     @OneToOne(optional=false, cascade=CascadeType.ALL)
     @JoinColumn(name="header_id")
     private headerDataDAO headerData=new headerDataDAO();
+    
+    
+    @OneToOne(optional=false, cascade=CascadeType.ALL)
+    @JoinColumn(name="experience_id")
+    private experienceDataDAO experienceData=new experienceDataDAO();
 }

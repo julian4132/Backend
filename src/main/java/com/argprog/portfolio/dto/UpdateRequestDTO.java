@@ -24,5 +24,16 @@ public class UpdateRequestDTO implements Serializable {
     public void setHeaderData(headerDataDTO headerData) {
         this.headerData = headerData;
     }
+    
+    public ExperienceDataDTO getExperienceData() {
+        return experienceData;
+    }
+
+    public void setExperienceData(ExperienceDataDTO experienceData) {
+        this.experienceData = experienceData;
+    }
+    
     private headerDataDTO headerData;
+    
+    private ExperienceDataDTO experienceData;
 }
