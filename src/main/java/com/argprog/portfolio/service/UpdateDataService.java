@@ -36,6 +36,8 @@ public class UpdateDataService {
         tokenValidator.validateToken(token);
         String username = tokenProvider.getUsernameFromToken(token);
         UserDAO user = userRepository.findByUsername(username);
+        System.out.println("Estoy por acá");
         dataMapper.updatePortfolioDataFromDto(updateData, user.getPortfolioUserData());
+        userRepository.save(user);
     }
 }

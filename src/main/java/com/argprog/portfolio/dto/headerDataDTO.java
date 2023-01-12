@@ -6,19 +6,39 @@ package com.argprog.portfolio.dto;
 
 import java.io.Serializable;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 /**
  *
  * @author Usuario
  */
-@Getter @Setter
-@AllArgsConstructor
-@NoArgsConstructor
+
 public class headerDataDTO implements Serializable{
     private String fullName;
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getProfession() {
+        return profession;
+    }
+
+    public void setProfession(String profession) {
+        this.profession = profession;
+    }
+
+    public String getAboutText() {
+        return aboutText;
+    }
+
+    public void setAboutText(String aboutText) {
+        this.aboutText = aboutText;
+    }
     private String profession;
     private String aboutText;
 }
