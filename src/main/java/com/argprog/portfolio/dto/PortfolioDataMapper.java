@@ -14,8 +14,7 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
  * @author Usuario
  */
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface PortfolioDataMapper {
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updatePortfolioDataFromDto(UpdateRequestDTO dto, @MappingTarget PortfolioUserDataDAO entity);
 }
