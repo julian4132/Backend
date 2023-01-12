@@ -56,6 +56,14 @@ public class PortfolioUserDataDAO {
         this.experienceData = experienceData;
     }
     
+    public EducationDataDAO getEducationData() {
+        return educationData;
+    }
+
+    public void setEducationData(EducationDataDAO educationData) {
+        this.educationData = educationData;
+    }
+    
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long Id;
@@ -71,4 +79,8 @@ public class PortfolioUserDataDAO {
     @OneToOne(optional=false, cascade=CascadeType.ALL)
     @JoinColumn(name="experience_id")
     private experienceDataDAO experienceData=new experienceDataDAO();
+    
+    @OneToOne(optional=false, cascade=CascadeType.ALL)
+    @JoinColumn(name="education_id")
+    private EducationDataDAO educationData=new EducationDataDAO();
 }
