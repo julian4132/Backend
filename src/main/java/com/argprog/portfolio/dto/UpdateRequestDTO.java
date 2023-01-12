@@ -33,7 +33,17 @@ public class UpdateRequestDTO implements Serializable {
         this.experienceData = experienceData;
     }
     
+    public SkillsDataDTO getSkillsData() {
+        return skillsData;
+    }
+
+    public void setSkillsData(SkillsDataDTO skillsData) {
+        this.skillsData = skillsData;
+    }
+    
     private headerDataDTO headerData;
     
     private ExperienceDataDTO experienceData;
+    
+    private SkillsDataDTO skillsData;
 }

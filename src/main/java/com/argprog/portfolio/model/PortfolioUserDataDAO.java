@@ -56,6 +56,14 @@ public class PortfolioUserDataDAO {
         this.experienceData = experienceData;
     }
     
+    public SkillsDataDAO getSkillsData() {
+        return skillsData;
+    }
+
+    public void setSkillsData(SkillsDataDAO skillsData) {
+        this.skillsData = skillsData;
+    }
+    
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long Id;
@@ -71,4 +79,8 @@ public class PortfolioUserDataDAO {
     @OneToOne(optional=false, cascade=CascadeType.ALL)
     @JoinColumn(name="experience_id")
     private experienceDataDAO experienceData=new experienceDataDAO();
+    
+    @OneToOne(optional=false, cascade=CascadeType.ALL)
+    @JoinColumn(name="skills_id")
+    private SkillsDataDAO skillsData=new SkillsDataDAO();
 }
