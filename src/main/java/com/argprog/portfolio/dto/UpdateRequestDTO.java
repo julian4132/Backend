@@ -46,4 +46,14 @@ public class UpdateRequestDTO implements Serializable {
     private ExperienceDataDTO experienceData;
     
     private SkillsDataDTO skillsData;
+    
+    private long linkIndex;
+
+    public long getLinkIndex() {
+        return linkIndex;
+    }
+
+    public void setLinkIndex(long linkIndex) {
+        this.linkIndex = linkIndex;
+    }
 }
