@@ -51,4 +51,8 @@ public class RefreshTokenService {
     public Optional<RefreshTokenDAO> findBySecret(String token){
         return refreshTokenRepository.findBySecret(token);
     }
+    
+    public long invalidateRefreshToken(String token){
+        return refreshTokenRepository.deleteBySecret(token);
+    }
 }

@@ -65,7 +65,7 @@ public class RefreshTokenDAO {
     private long Id;
     
     
-    @OneToOne(optional=false, cascade=CascadeType.ALL)
+    @OneToOne(optional=false)
     @JoinColumn(name="user_id", unique=true)
     private UserDAO user;
     

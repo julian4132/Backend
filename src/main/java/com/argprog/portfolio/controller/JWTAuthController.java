@@ -6,6 +6,7 @@ package com.argprog.portfolio.controller;
 
 import com.argprog.portfolio.dto.JwtRequestDTO;
 import com.argprog.portfolio.dto.JwtResponseDTO;
+import com.argprog.portfolio.dto.LogoutRequestDTO;
 import com.argprog.portfolio.dto.RefreshRequestDTO;
 import com.argprog.portfolio.dto.UserDTO;
 import com.argprog.portfolio.model.RefreshTokenDAO;
@@ -93,6 +94,12 @@ public class JWTAuthController {
             final String token = tokenProvider.generateToken(user_details);
             return ResponseEntity.ok(new JwtResponseDTO(token, null));
         }).orElseThrow(() -> new BadCredentialsException("Invalid refresh token supplied"));
+    }
+    
+    @RequestMapping(value="/userlogout", method = RequestMethod.POST)
+    public ResponseEntity<?> logOut(@RequestBody LogoutRequestDTO request){
+        refreshTokenService.invalidateRefreshToken(request.getRefreshToken());
+        return ResponseEntity.ok("Successfully logged out");
     }
     
     

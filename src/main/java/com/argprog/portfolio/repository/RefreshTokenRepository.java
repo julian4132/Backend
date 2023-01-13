@@ -5,6 +5,7 @@
 package com.argprog.portfolio.repository;
 
 import com.argprog.portfolio.model.RefreshTokenDAO;
+import jakarta.transaction.Transactional;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -18,4 +19,7 @@ import org.springframework.stereotype.Repository;
 public interface RefreshTokenRepository extends JpaRepository<RefreshTokenDAO, Long> {
     Optional<RefreshTokenDAO> findById(long Id);
     Optional<RefreshTokenDAO> findBySecret(String token);
+    
+    @Transactional
+    long deleteBySecret(String token);
 }
