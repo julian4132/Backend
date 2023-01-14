@@ -63,14 +63,6 @@ public class PortfolioUserDataDAO {
     public void setSkillsData(SkillsDataDAO skillsData) {
         this.skillsData = skillsData;
     }
-
-    public long getLinkIndex() {
-        return linkIndex;
-    }
-
-    public void setLinkIndex(long linkIndex) {
-        this.linkIndex = linkIndex;
-    }
     
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -78,9 +70,6 @@ public class PortfolioUserDataDAO {
     
     @Column
     private String aboutText;
-    
-    @Column
-    private long linkIndex;
     
     @OneToOne(optional=false, cascade=CascadeType.ALL)
     @JoinColumn(name="header_id")

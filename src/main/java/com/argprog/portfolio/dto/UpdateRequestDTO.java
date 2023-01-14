@@ -47,13 +47,13 @@ public class UpdateRequestDTO implements Serializable {
     
     private SkillsDataDTO skillsData;
     
-    private long linkIndex;
+    private String linkIndex;
 
-    public long getLinkIndex() {
+    public String getLinkIndex() {
         return linkIndex;
     }
 
-    public void setLinkIndex(long linkIndex) {
+    public void setLinkIndex(String linkIndex) {
         this.linkIndex = linkIndex;
     }
 }

@@ -66,6 +66,14 @@ public class ItemDataDAO {
     public void setExtraInfo(String extraInfo) {
         this.extraInfo = extraInfo;
     }
+
+    public String getLinkIndex() {
+        return linkIndex;
+    }
+
+    public void setLinkIndex(String linkIndex) {
+        this.linkIndex = linkIndex;
+    }
     
     @Column
     private String title;
@@ -78,4 +86,7 @@ public class ItemDataDAO {
     
     @Column
     private String extraInfo;
+    
+    @Column
+    private String linkIndex;
 }
