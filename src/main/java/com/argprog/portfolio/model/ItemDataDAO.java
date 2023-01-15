@@ -74,6 +74,14 @@ public class ItemDataDAO {
     public void setLinkIndex(String linkIndex) {
         this.linkIndex = linkIndex;
     }
+
+    public String getImgSrc() {
+        return imgSrc;
+    }
+
+    public void setImgSrc(String imgSrc) {
+        this.imgSrc = imgSrc;
+    }
     
     @Column
     private String title;
@@ -89,4 +97,7 @@ public class ItemDataDAO {
     
     @Column
     private String linkIndex;
+    
+    @Column
+    private String imgSrc;
 }
