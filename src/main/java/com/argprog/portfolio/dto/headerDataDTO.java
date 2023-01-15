@@ -14,7 +14,11 @@ import lombok.NoArgsConstructor;
  */
 
 public class headerDataDTO implements Serializable{
-    private String fullName;
+    private String fullName;    
+    private String profession;
+    private String aboutText;
+    private String profilePicSrc;
+    private String bannerSrc;
 
     public String getFullName() {
         return fullName;
@@ -39,6 +43,20 @@ public class headerDataDTO implements Serializable{
     public void setAboutText(String aboutText) {
         this.aboutText = aboutText;
     }
-    private String profession;
-    private String aboutText;
+
+    public String getProfilePicSrc() {
+        return profilePicSrc;
+    }
+
+    public void setProfilePicSrc(String profilePicSrc) {
+        this.profilePicSrc = profilePicSrc;
+    }
+
+    public String getBannerSrc() {
+        return bannerSrc;
+    }
+
+    public void setBannerSrc(String bannerSrc) {
+        this.bannerSrc = bannerSrc;
+    }
 }

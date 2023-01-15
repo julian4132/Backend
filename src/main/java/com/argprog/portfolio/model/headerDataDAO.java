@@ -54,6 +54,24 @@ public class headerDataDAO {
     public void setAboutText(String aboutText) {
         this.aboutText = aboutText;
     }
+
+    public String getProfilePicSrc() {
+        return profilePicSrc;
+    }
+
+    public void setProfilePicSrc(String profilePicSrc) {
+        this.profilePicSrc = profilePicSrc;
+    }
+
+    public String getBannerSrc() {
+        return bannerSrc;
+    }
+
+    public void setBannerSrc(String bannerSrc) {
+        this.bannerSrc = bannerSrc;
+    }
+    
+    
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long Id;
@@ -66,4 +84,10 @@ public class headerDataDAO {
     
     @Column
     private String aboutText="cc";
+    
+    @Column
+    private String profilePicSrc;
+    
+    @Column
+    private String bannerSrc;
 }
