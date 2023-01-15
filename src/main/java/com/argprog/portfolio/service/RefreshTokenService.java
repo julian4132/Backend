@@ -41,6 +41,9 @@ public class RefreshTokenService {
     }
     
     public void save(RefreshTokenDAO token){
+        refreshTokenRepository.findByUser(token.getUser()).ifPresent(foundToken -> {
+            refreshTokenRepository.deleteById(foundToken.getId());
+        });
         refreshTokenRepository.save(token);
     }
     
